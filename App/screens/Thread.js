@@ -3,13 +3,22 @@ import { FlatList, View } from 'react-native';
 
 import { Status, Separator } from '../components/Status';
 import { Button } from '../components/Button';
+import { useQuery } from '@apollo/react-hooks';
+import { requestResponses } from '../graphql/queries';
 
 const Thread = ({ navigation, route }) => {
   const originalStatus = route.params.status;
+  const { data, loading } = useQuery(requestResponses, {
+    variables: { _id: originalStatus._id },
+  });
+
+  if (loading) {
+    return null;
+  }
 
   return (
     <FlatList
-      data={[]}
+      data={data.responses}
       renderItem={({ item }) => (
         <Status
           {...item}
