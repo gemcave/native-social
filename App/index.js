@@ -17,13 +17,15 @@ const AppNavigatorStack = () => {
   return (
     <AppStack.Navigator
       initialRouteName="Feed"
-      screenOptions={{ title: 'Home' }}
+      // screenOptions={{ headerTitle: 'Home' }}
+      headerMode="float"
     >
       <AppStack.Screen
         name="Feed"
         component={Feed}
         options={({ navigation, route }) => ({
           title: 'Home',
+          headerTitle: 'Home',
           headerTintColor: '#fff',
           // headerStyle: {
           //   backgroundColor: route.params.color || '#fff',
@@ -46,12 +48,19 @@ const ModalNavigatorStack = () => {
   return (
     <NavigationContainer>
       <ModalStack.Navigator mode="modal" headerMode="none">
-        <ModalStack.Screen name="App" component={AppNavigatorStack} />
+        <ModalStack.Screen
+          name="App"
+          component={AppNavigatorStack}
+          options={({ navigation, route }) => ({
+            title: 'Home',
+          })}
+        />
         <ModalStack.Screen
           name="NewStatus"
           component={NewStatus}
           options={({ route }) => ({
             title: 'New Status',
+            headerTitle: 'New Status',
           })}
         />
       </ModalStack.Navigator>
